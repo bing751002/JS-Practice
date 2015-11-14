@@ -1,0 +1,46 @@
+<!-----
+Source : http://curran.github.io/screencasts/introToAngular/exampleViewer/#/13
+
+point:
+1. ng-app= xxx,  xxx要和var xxx = angular.module 的xxx一樣
+
+2. $scope.apply() 是用來通知view那端  將更新的內容去通知view
+若沒有這行  則雖然scope的內容會變，但是不會更新到view
+
+
+-->
+
+
+
+<html ng-app="nameApp">  
+  <head>
+    <meta charset="utf-8">
+    <title>Angular.js Example</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
+    <script> 
+    /**
+    *  Module   
+    *
+    * Description
+    */
+    var nameApp = angular.module('nameApp', []);
+    nameApp.controller('nameCtrl',function($scope){
+     $scope.firstName = "hi";
+     $scope.lastName = "GG"; 
+     $scope.$watch('lastName', function(newvalue, oldvalue){
+      console.log('value update');
+     setTimeout(function(){
+     $scope.lastName = 'Smith'
+     $scope.$apply();
+        }, 1000);
+     });
+    }); </script>
+  </head>   
+  <body ng-controller= "nameCtrl">
+    First name:<input ng-model="firstName" type="text"/>
+    <br>  
+ Last name:<input ng-model="lastName" type="text"/>
+    <br>
+    Hello {{firstName}} {{lastName}}
+  </body>
+</html>
